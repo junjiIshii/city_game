@@ -1,0 +1,145 @@
+*{
+  margin:0px;
+  padding:0px;
+  box-sizing:border-box;
+}
+
+
+.game-area-conteiner {
+  margin:10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.mainwrapper {
+  display: inline-block;
+}
+
+/*画面上部の情報バー*/
+.info-area {
+  width: 70%;
+  height: 60px;
+  border: 1px black solid;
+  padding:0px 5px;
+  margin: 0 auto;
+  display:flex;
+}
+
+.info-unit{
+  width:120px;
+  height:100%;
+  display:flex;
+  align-items: center;
+}
+
+.info-unit .icon-wrap{
+  width:30px;
+  height:30px;
+  min-width:30px;
+  min-height:30px;
+}
+
+.info-unit img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+.info-unit p{
+  
+}
+
+.usersetting-area {
+  width: 250px;
+  height: 300px;
+  border: 1px black solid;
+}
+
+.gamearea-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid #333;
+}
+
+tr {
+  height: 60px;
+}
+
+td {
+  width: 60px;
+  background: lightgreen;
+  background-size:cover ;
+  
+}
+
+
+/*諸処のアイコンの設定*/
+.forest{
+  
+  background-image:url("pictures/forest.png");
+}
+
+.mountain{
+  background-image:url("pictures/mountain.png");
+}
+
+.sea{
+  background-color: blue;
+}
+
+.cell:hover {
+  border: 1px dotted black;
+  opacity:0.7;
+}
+
+.game-setting-area {
+  width: 250px;
+  height: 300px;
+  border: 1px black solid;
+}
+
+.game-setting-area li{
+  list-style: none;
+}
+
+.center-box {
+  margin: 0px 10px;
+}
+
+.message-area {
+  width: 100%;
+  max-width:550px;
+  height: 150px;
+  margin-top: 10px;
+  border: 1px black solid;
+}
+
+.hq{
+  background-image: url("pictures/hq.png");
+}
+
+.village{
+  background-image: url("pictures/village.png");
+}
+
+.farm{
+  background-image: url("pictures/farm.png");
+}
+
+.factory{
+  background-image: url("pictures/small_factory.png");
+}
+
+.store{
+  background-image: url("pictures/small_store.png");
+}
