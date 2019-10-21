@@ -10,7 +10,7 @@
     session_start();
     session_regenerate_id();
 
-
+//ブランチのテスト
 
     $row = 11;//左右
     $line = 11;//上下
