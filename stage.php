@@ -7,163 +7,6 @@
     session_save_path("/Applications/MAMP/tmp/php");
     ini_set('session.gc_maxlifetime',60*60*24*30);
     ini_set('session.cookie_lifetime',60*60*24*30);
-    session_start();
-    session_regenerate_id();
-
-//ブランチのテスト
-
-    $row = 11;//左右
-    $line = 11;//上下
-    $allCell = $row*$line;
-
-    $hqrow = ceil($row/2);
-    $hqline = ceil($line/2);
-
-    $hqCell = ceil($allCell/2);
-
-
-    $debug_flg = true;
-    
-
-    function debug($str){
-        global $debug_flg;
-        
-        if($debug_flg){
-            error_log("\n"."DEBUG:".$str,3,'debug.log');
-        }
-    }
-
-    function init_game(){
-        $_SESSION['people']=10;
-        $_SESSION['food']=100;
-        $_SESSION['product']=10;
-        $_SESSION['money']=100;
-        $_SESSION['term']=1;
-    }
-
-Class Cell{
-    private $cellId;
-    protected $building;
-    
-    public function __construct($cellId,$building)
-    {
-        $this->cellId = $cellId;
-        $this->building = $building;
-    }
-
-        public function getCellId(){
-            return $this->cellId;
-        }
-
-        public function getbuilding(){
-            return $this->building;
-        }
-
-        public function setCellId($num){
-            $this->building = filter_var($num,FILTER_VALIDATE_INT);
-        }
-
-        public function setbuilding($bld){
-            $this->building = (string)$bld;
-        }
-}
-
-Class Buildings extends Cell{
-    private $buildName;
-    private $intro;
-    private $cost;
-    private $product;
-    
-    public function __construct($name,$intro,$cost,$prod)
-    {
-        $this->buildName =$name;
-        $this->intro =$intro;
-        $this->cost = $cost;//連想配列で入力する。
-        $this->product = $prod;//連想配列で出力する。
-    }
-}
-
-$residence = new Buildings('住居区','人口を増やすことができる。',['monery'=>20,'product'=>20],['people'=>10]);
-
-Class Resources {
-    private $resourceName;
-    public function __construct($name)
-    {
-        $this->resourceName =$name;
-    }
-
-}
-
-$people = new Resources('人口');
-$food = new Resources('食料');
-$product = new Resources('生産力');
-$money = new Resources('財貨');
-
-
-    function mapSetting($line,$nowline,$geo){
-        if($nowline==$line){
-            return $geo;
-        }
-    }
-
-
-
-
-    //HQの設定
-    
-    //なぜかインスタンスが作られない。
-    function setAllCell(){
-        global $cellData;
-        global $allCell;
-        $cellData = array();
-
-        for($l=1; $l<=$allCell  ; $l++){
-            ${"cell".$l} = new Cell($l,"");
-            $cellData[$l] = ${"cell".$l};
-            
-            global ${"cell".$l} ;
-        }
-    }
-
-
-    
-    if(!empty($_POST)){
-        //リセット＝スタート
-        $start_flg = (!empty($_POST['gameStart']))?true:false;
-        $goNext = (!empty($_POST['nextTerm']))?true:false;
-
-        if($start_flg){
-            setAllCell();
-            //初期設定にあとで置いておく
-            $cellData= array();
-
-            //Cellインスタンスの設定。それぞれのCellの情報はここに格納する。
-            for($l=1; $l<=$allCell  ; $l++){
-                ${"cell".$l} = new Cell($l,"");
-                $_SESSION["cell{$l}"] = ${"cell".$l};
-                //$cellData[$l] = ${"cell".$l};
-            }
-
-            ${"cell".$hqCell}->setbuilding("hq");
-
-            init_game();
-        }else{
-            //次のターンを押した。
-            
-            //セルの状態を更新する。
-            for($i=1; $i<=$allCell; $i++){
-                
-                ${"cell".$i} = $_SESSION["cell{$l}"];
-                if(!empty($_POST["cellData{$i}"])){
-                    
-                    ${"cell".$i}->setbuilding($_POST["cellData{$i}"]);
-                }
-            }
-            
-        }
-    }
-    
-
 
 ?>
 
@@ -174,55 +17,61 @@ $money = new Resources('財貨');
         <!--CSS-->
         <title>CITY GAME</title>
         <link rel="stylesheet" href="style.css" >
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     </head>
 
     <body>
             <div class="game-area-conteiner">
 
                 <div class="mainwrapper">
-                    <?php if(empty($_SESSION)){?>
+                    
 
                     <div class="start-menu">
                         ゲームを始める？
-                        <form method="post">
-                            <input type="submit" name="gameStart" value="ゲームを始める">
-                        </form>
+                        <input class="stat-btn" type="button" name="gameStart" value="ゲームを始める">
+                        
                     </div>
-                    <?php }else{?>
+                    
                     
                 
                     <div class="info-area">
-                        <div class="info-unit" id="poeple-info">
-                            <div class="icon-wrap">
-                                <img src="pictures/people.png" alt="">
-                            </div>
-                            <p>10/10</p>
+                        <div class="info-unit" id="people-info">
+                            <i class="fas fa-user-friends"></i>
+                            <p id="free-people"></p>
                         </div>
 
                         <div class="info-unit" id="food-info">
-                            <div class="icon-wrap">
-                                <img src="pictures/food.png" alt="">
-                            </div>
-                            <p>100&#040-20&#041</p>
+                            <i class="fas fa-apple-alt"></i>
+                            <p></p>
                         </div>
 
                         <div class="info-unit" id="product-info">
-                            <div class="icon-wrap">
-                                <img src="pictures/hammer.png" alt="">
-                            </div>
-                            <p>10/10</p>
+                            <i class="fas fa-hammer"></i>
+                            <p></p>
                         </div>
 
                         <div class="info-unit" id="money-info">
-                            <div class="icon-wrap">
-                                <img src="pictures/money.png" alt="">
-                            </div>
-                            <p>100&#040-20&#041</p>
+                            <i class="fas fa-money-bill-wave"></i>
+                            <p></p>
                         </div>
 
-                        <div class="info-unit" id="money-info">
-                            <h4>1</h4><p>ターン目</p>
+                        <div class="info-unit" id="anger-info">
+                            <i class="fas fa-angry"></i>
+                            <p></p>
                         </div>
+
+                        <div class="info-unit" id="term">
+                            <h4></h4><p>ターン目</p>
+                        </div>
+
+                        <div class="info-unit" id="nextTerm">
+                            <input class="next-btn" type="button" name="nextTerm" value="次のターンへ">
+                            <input class="stat-btn" type="button" name="gameStart" value="リセット">
+                        </div>
+
+                        
+                            
+                        
                         
                             
                     </div>
@@ -235,46 +84,77 @@ $money = new Resources('財貨');
                         </div>
 
                         <div class="center-box">
-                            <table border="1">
-                                <form method="post">
-                                    <?php for($l=1; $l<=$line; $l++){?>
-                                        <tr class="row">
-                                            <?php for($i=1; $i<=$row; $i++){?>
-                                                <td align="center" 
-                                                    class="cell <?php echo ${"cell".($i+($l-1)*$row)}->getbuilding();?>" 
-                                                    id="<?php echo $i+($l-1)*$row?>" 
-                                                    data-cell="" data-build="">
-                                                    <input type="hidden" name="<?php echo 'cellData'.($i+($l-1)*$row)?>" value=""></td>
-                                            <?php }?>
-                                        </tr>
-                                    <?php }?>
-                            </table>
+                            <div class="building-unit" id="1">
+                                <div class="icon-wrap">
+                                    <img src="pictures/town.png" alt="">
+                                </div>
+                                <p>住宅</p>
+                            </div>
 
+                            <div class="building-unit" id="2">
+                                <div class="icon-wrap">
+                                    <img src="pictures/middle-store.png" alt="">
+                                </div>
+                                <p>商業区</p>
+                            </div>
+
+                            <div class="building-unit" id="3">
+                                <div class="icon-wrap">
+                                    <img src="pictures/middle_factory.png" alt="">
+                                </div>
+                                <p>工場</p>
+                            </div>
+
+                            <div class="building-unit" id="4">
+                                <div class="icon-wrap">
+                                    <img src="pictures/farm.png" alt="">
+                                </div>
+                                <p>農場</p>
+                            </div>
+
+
+                            
                         </div>
 
                         <div class="game-setting-area">
-                            <ul>
-                                <li class="action-btn build">建設する
-                                    <ul>
-                                        <li class="sub-selector buildings" id="village">村</li>
-                                        <li class="sub-selector buildings" id="farm">農場</li>
-                                        <li class="sub-selector buildings " id="factory">工場</li>
-                                        <li class="sub-selector buildings " id="store">商業区</li>
-                                    </ul>
-                                </li>
+                            <h3>建物情報</h3>
+                            <div class="buildInfo">
+                                <div class="icon-wrap">
+                                    <img src="" alt="">
+                                </div>
+                                <h4 class="info-buildName" ></h4>
+                                <h4 class="info-worker" >労働者</h4>
+                                <p class="info-workerNum"></p>
 
-                                <li>調べる</li>
-                                <li class="map-edit">sea</li>
-                                <li class="action-btn stop">stop</li>
-                            </ul>
-                            
-                                <input type="submit" name="nextTerm" value="次のターンへ">
-                                <input type="submit" name="gameStart" value="リセット">
-                            </form>
+                                <i class="fas fa-plus-circle" id="inc-worker"></i>
+                                <i class="fas fa-minus-circle" id="dec-worker"></i>
+
+                                <h4 class="info-product" >生産物</h4>
+                                <i class="" id="product"></i>
+                                <span class="info-productNum"></span>
+
+                                <h4 class="info-upsize" ></h4>
+                                <i class="fas fa-arrow-circle-up"></i>
+
+                                    <i class="fas fa-hammer"></i>
+                                    <span class="prod-cost">5</span>
+
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span class="money-cost">5</span>
+
+                                <h4 class="info-upquality" ></h4>
+                                <i class="fas fa-arrow-circle-up"></i>
+
+                                    <i class="fas fa-hammer"></i>
+                                    <span class="prod-cost">15</span>
+
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span class="money-cost">15</span>
+                            </div>
                         </div>
                         
                     </div>
-                    <?php }?>
+
 
                 </div>
                 
@@ -286,9 +166,6 @@ $money = new Resources('財貨');
             <script type="text/javascript" src="game_operate.js"></script>
             <script type="text/javascript" src="animation.js"></script>
         </footer>
-        <pre>
-            <?php var_dump($_POST);?>
-            <?php var_dump($_SESSION);?>
-        </pre>
+    
     </body>
 </html>

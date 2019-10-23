@@ -43,14 +43,28 @@
   min-height:30px;
 }
 
-.info-unit img{
+.icon-wrap img{
   width:100%;
   height:100%;
   object-fit: cover;
+
+}
+ 
+.building-unit .icon-wrap{
+  width:50px;
+  height:50px;
+  min-width:50px;
+  min-height:50px;
 }
 
-.info-unit p{
-  
+.building-unit p{
+  color:white;
+}
+
+.center-box{
+  width:450px;
+  height:100%;
+  background-color: black;
 }
 
 .usersetting-area {
@@ -64,23 +78,10 @@
   display: -ms-flexbox;
   display: flex;
   margin-top: 10px;
+  height:400px;
 }
 
-table {
-  border-collapse: collapse;
-  border: 2px solid #333;
-}
 
-tr {
-  height: 60px;
-}
-
-td {
-  width: 60px;
-  background: lightgreen;
-  background-size:cover ;
-  
-}
 
 
 /*諸処のアイコンの設定*/
@@ -89,23 +90,11 @@ td {
   background-image:url("pictures/forest.png");
 }
 
-.mountain{
-  background-image:url("pictures/mountain.png");
-}
-
-.sea{
-  background-color: blue;
-}
-
-.cell:hover {
-  border: 1px dotted black;
-  opacity:0.7;
-}
 
 .game-setting-area {
   width: 250px;
-  height: 300px;
   border: 1px black solid;
+  padding:5px;
 }
 
 .game-setting-area li{
@@ -114,6 +103,35 @@ td {
 
 .center-box {
   margin: 0px 10px;
+  display: flex;
+  flex-wrap:wrap;
+  align-content: flex-start;
+}
+
+.building-unit{
+  margin:5px;
+  width:80px;
+  height:80px;
+  border:1px white solid;
+  text-align: center;
+  padding:3px;
+}
+
+.building-unit :hover{
+  cursor: pointer;
+}
+
+.building-unit .icon-wrap{
+  margin:0 auto;
+}
+
+.buildInfo .icon-wrap{
+  width:50px;
+  height:50px;
+  min-width:50px;
+  min-height:50px;
+  padding:2px;
+  border:2px solid black;
 }
 
 .message-area {
@@ -142,4 +160,8 @@ td {
 
 .store{
   background-image: url("pictures/small_store.png");
+}
+
+.power-plant{
+  background-color:rgba(128,128,128,0.5);
 }
