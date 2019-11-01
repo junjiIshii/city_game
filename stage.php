@@ -16,7 +16,7 @@
         <meta charset="UTF-8">
         <!--CSS-->
         <title>CITY GAME</title>
-        <link rel=”icon” type="image/png" href=”pictures/bank.png”>
+        <link rel="shortcut icon" href="pictures/large-store.ico">
         <link rel="stylesheet" href="style.css" >
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     </head>
@@ -363,7 +363,6 @@
             <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
             <!--<script type="text/javascript" src="tank_setting.js"></script>-->
             <script type="text/javascript" src="game_operate.js"></script>
-            <script type="text/javascript" src="animation.js"></script>
         </footer>
     
     </body>

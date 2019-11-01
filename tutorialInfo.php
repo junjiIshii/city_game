@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <!--CSS-->
         <title>CITY GAME TUTORIAL</title>
-        <link rel=”icon” type="image/png" href=”pictures/bank.png”>
+        <link rel="shortcut icon" href="pictures/large-store.ico">
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <style>
             *{
